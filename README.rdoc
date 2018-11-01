@@ -1,0 +1,16 @@
+== FarmWorker Application
+
+This program is a tool to help FarmWorker practioners collect patient data.
+
+Set up:
+
+* Clone this repository
+* Run <tt>bundle install</tt>
+* Run <tt>rake db:migrate</tt>
+* Run <tt>rake db:seed</tt>
+
+First run:
+
+* Run <tt>rails server</tt>
+* Log in with username: admin and password: password
+

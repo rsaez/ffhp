@@ -1,0 +1,74 @@
+<h2>Edit User</h2>
+
+  <div class="container">
+    <%= form_for(:user, url: user_update_path, :validate => true, :class => 'form-horizontal', :method => 'put') do |f| %>
+      
+      <div class="form-group row col-md-8">
+        <div class="col-md-5">
+          <%= f.label :first_name %>
+        </div>
+        <div class="col-md-7">
+          <%= f.text_field :first_name, :class => "form-control", :placeholder => "First Name" %>
+        </div>
+      </div>
+      <div class="form-group row col-md-8">
+        <div class="col-md-5">
+          <%= f.label :last_name %>
+        </div>
+        <div class="col-md-7">
+          <%= f.text_field :last_name, :class => "form-control", :placeholder => "Last Name" %>
+        </div>
+      </div>
+      <div class="form-group row col-md-8">
+        <div class="col-md-5">
+          <%= f.label :username %>
+        </div>
+        <div class="col-md-7">
+          <%= f.text_field :username, :class => "form-control", :placeholder => "Username" %>
+        </div>
+      </div>
+      <div class="form-group row col-md-8">
+        <div class="col-md-5">
+          <%= f.label :password %>
+        </div>
+        <div class="col-md-7">
+          <%= f.password_field :password, :class => "form-control"%>
+        </div>
+      </div>
+      <div class="form-group row col-md-8">
+        <div class="col-md-5">
+          <%= f.label :email %>
+        </div>
+        <div class="col-md-7">
+          <%= f.text_field :email, :class => "form-control", :placeholder => "Email" %>
+        </div>
+      </div>
+      <div class="form-group row col-md-8">
+        <div class="col-md-5">
+          <%= f.label :user_role %>
+        </div>
+        <div class="col-md-7">
+          <%= f.select :role, options_for_select(["Student-BSN", "Student-MSN", "Faculty","Admin"], @user.role) %>
+        </div>
+      </div>
+      <div class="form-group row col-md-8">
+        <div class="btn"> 
+          <%= button_to "Update", { action: "update", id: @user.id }, 
+          :class => "btn btn-success" %>
+        </div>
+        <div class="btn btn-primary cancel">Cancel</div>
+        <div class="pull-right">
+        <%= button_to "Delete", { action: "delete", id: @user.id }, 
+            :class => "btn btn-danger",
+            method: :delete, data: { confirm: "Are you sure you want to delete this account? This action is irreversible!" } %>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+</div>
+<script>
+  $(".cancel").click(function() {
+    window.document.location = "<%= dashboard %>";    
+  });
+</script>

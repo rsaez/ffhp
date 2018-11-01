@@ -1,0 +1,215 @@
+<div class="hearing-container show" style="margin-top:1rem;">
+  <div class="container">
+    <%= form_for(:patient_record, url: patient_update_record_path, type: "hearing", :validate => true, :class => 'form-horizontal') do |f| %>
+
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :unable_to_screen, "Unable To Screen" %>
+        </div>
+        <div class="col-md-5">
+          <% unable_to_screen = @patient.hearing.unable_to_screen %>
+          <%= f.check_box :unable_to_screen, :checked => unable_to_screen, :id => "enableEntries" %>
+          (Please explain in Comment Section)
+        </div>
+      </div>
+
+      <div style="display:<%= @patient.hearing.unable_to_screen ? 'none' : 'default' %>" id="entries">
+        <div class="row col-md-12"><hr></div>
+        <div class="form-group row">
+          <div class="col-md-3">
+            <%= f.label :use_assitive_device, "Uses Hearing Aid/Assistive Device" %>
+          </div>
+          <div class="col-md-5">
+            <% use_assitive_device = @patient.hearing.use_assitive_device %>
+            <%= f.check_box :use_assitive_device, :checked => use_assitive_device %>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-3">
+            <%= f.label :under_professional_care, "Under Professional Care" %>
+          </div>
+          <div class="col-md-5">
+            <% under_professional_care = @patient.hearing.under_professional_care %>
+            <%= f.check_box :under_professional_care, :checked => under_professional_care %>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-3">
+            <%= f.label :audiometer %>
+          </div>
+          <div class="col-md-5">
+            <%= f.select :audiometer, options_for_select(["20 dB","25 dB"], @patient.hearing.audiometer), :class => 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-2"><%= f.label :frequency %></div>
+          <div class="col-md-2"><strong>500 Hz</strong></div>
+          <div class="col-md-2"><strong>750 Hz</strong></div>
+          <div class="col-md-2"><strong>1000 Hz</strong></div>
+          <div class="col-md-2"><strong>2000 Hz</strong></div>
+          <div class="col-md-2"><strong>4000 Hz</strong></div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-2"><%= f.label :al, "Left Ear (a.l., a.s.)" %></div>
+          <div class="col-md-2">            
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-switch btn-sm <%= @patient.hearing.alf500 ? 'active btn-success' : 'btn-default' %>">
+                <input type="radio" name="patient_record[alf500]" value="true">Pass
+              </label>
+              <label class="btn btn-switch btn-sm <%= @patient.hearing.alf500 ? 'btn-default' : 'active btn-danger' %>">
+                <input type="radio" name="patient_record[alf500]" value="false">Fail
+              </label>
+            </div>
+          </div>
+          <div class="col-md-2">            
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-switch btn-sm <%= @patient.hearing.alf750 ? 'active btn-success' : 'btn-default' %>">
+                <input type="radio" name="patient_record[alf750]" value="true">Pass
+              </label>
+              <label class="btn btn-switch btn-sm <%= @patient.hearing.alf750 ? 'btn-default' : 'active btn-danger' %>">
+                <input type="radio" name="patient_record[alf750]" value="false">Fail
+              </label>
+            </div>
+          </div>
+          <div class="col-md-2">            
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-switch btn-sm <%= @patient.hearing.alf1k ? 'active btn-success' : 'btn-default' %>">
+                <input type="radio" name="patient_record[alf1k]" value="true">Pass
+              </label>
+              <label class="btn btn-switch btn-sm <%= @patient.hearing.alf1k ? 'btn-default' : 'active btn-danger' %>">
+                <input type="radio" name="patient_record[alf1k]" value="false">Fail
+              </label>
+            </div>
+          </div>
+          <div class="col-md-2">            
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-switch btn-sm <%= @patient.hearing.alf2k ? 'active btn-success' : 'btn-default' %>">
+                <input type="radio" name="patient_record[alf2k]" value="true">Pass
+              </label>
+              <label class="btn btn-switch btn-sm <%= @patient.hearing.alf2k ? 'btn-default' : 'active btn-danger' %>">
+                <input type="radio" name="patient_record[alf2k]" value="false">Fail
+              </label>
+            </div>
+          </div>
+          <div class="col-md-2">            
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-switch btn-sm <%= @patient.hearing.alf4k ? 'active btn-success' : 'btn-default' %>">
+                <input type="radio" name="patient_record[alf4k]" value="true">Pass
+              </label>
+              <label class="btn btn-switch btn-sm <%= @patient.hearing.alf4k ? 'btn-default' : 'active btn-danger' %>">
+                <input type="radio" name="patient_record[alf4k]" value="false">Fail
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-2"><%= f.label :ad, "Right Ear (a.d.)" %></div>
+          <div class="col-md-2">            
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-switch btn-sm <%= @patient.hearing.adf500 ? 'active btn-success' : 'btn-default' %>">
+                <input type="radio" name="patient_record[adf500]" value="true">Pass
+              </label>
+              <label class="btn btn-switch btn-sm <%= @patient.hearing.adf500 ? 'btn-default' : 'active btn-danger' %>">
+                <input type="radio" name="patient_record[adf500]" value="false">Fail
+              </label>
+            </div>
+          </div>
+          <div class="col-md-2">            
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-switch btn-sm <%= @patient.hearing.adf750 ? 'active btn-success' : 'btn-default' %>">
+                <input type="radio" name="patient_record[adf750]" value="true">Pass
+              </label>
+              <label class="btn btn-switch btn-sm <%= @patient.hearing.adf750 ? 'btn-default' : 'active btn-danger' %>">
+                <input type="radio" name="patient_record[adf750]" value="false">Fail
+              </label>
+            </div>
+          </div>
+          <div class="col-md-2">            
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-switch btn-sm <%= @patient.hearing.adf1k ? 'active btn-success' : 'btn-default' %>">
+                <input type="radio" name="patient_record[adf1k]" value="true">Pass
+              </label>
+              <label class="btn btn-switch btn-sm <%= @patient.hearing.adf1k ? 'btn-default' : 'active btn-danger' %>">
+                <input type="radio" name="patient_record[adf1k]" value="false">Fail
+              </label>
+            </div>
+          </div>
+          <div class="col-md-2">            
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-switch btn-sm <%= @patient.hearing.adf2k ? 'active btn-success' : 'btn-default' %>">
+                <input type="radio" name="patient_record[adf2k]" value="true">Pass
+              </label>
+              <label class="btn btn-switch btn-sm <%= @patient.hearing.adf2k ? 'btn-default' : 'active btn-danger' %>">
+                <input type="radio" name="patient_record[adf2k]" value="false">Fail
+              </label>
+            </div>
+          </div>
+          <div class="col-md-2">            
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-switch btn-sm <%= @patient.hearing.adf4k ? 'active btn-success' : 'btn-default' %>">
+                <input type="radio" name="patient_record[adf4k]" value="true">Pass
+              </label>
+              <label class="btn btn-switch btn-sm <%= @patient.hearing.adf4k ? 'btn-default' : 'active btn-danger' %>">
+                <input type="radio" name="patient_record[adf4k]" value="false">Fail
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-3">
+            <%= f.label :need_further_evaluation, "Need Further Evaluation" %>
+          </div>
+          <div class="col-md-5">
+            <% need_further_evaluation = @patient.hearing.need_further_evaluation %>
+            <%= f.check_box :need_further_evaluation, :checked => need_further_evaluation %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row col-md-12"><hr></div>
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label "Comment" %>
+        </div>
+        <div class="col-md-5">
+          <% comment = @patient.hearing.comment %>
+          <textarea placeholder="Comment" name="patient_record[comment]" class="form-control" rows="2"><%= comment %></textarea>
+        </div>
+      </div>
+      <div class="form-group row col-md-12">
+        <hr>
+        <div class="container">
+          <label class="col-md-3">Working Practitioner(s)</label>
+          <div class="col-md-5">
+            <% practitioner = @patient.hearing.practitioner.empty? ? "#{current_user.first_name} #{current_user.last_name}" : @patient.hearing.practitioner %>
+            <%= f.text_field :practitioner, :class => "form-control", :value => practitioner, :placeholder => "Can't be blank" %>
+          </div>  
+        </div>
+      </div> 
+
+      <%= render 'patient/input_footer' %>
+
+    <% end %>
+  </div>
+</div>
+
+<script>
+  $(".hearing").addClass("active");
+  $("#enableEntries").change(function() {
+    $("#entries").toggle();
+  });
+  $(".btn-switch").click(function() {
+    if ($(this).find("input").attr("value") == "true") {
+      $(this).removeClass("btn-default");
+      $(this).addClass("btn-success");
+      $(this).parent().find(".btn-danger").addClass("btn-default");
+      $(this).parent().find(".btn-danger").removeClass("btn-danger");
+    }
+    else {
+      $(this).removeClass("btn-default");
+      $(this).addClass("btn-danger");
+      $(this).parent().find(".btn-success").addClass("btn-default");
+      $(this).parent().find(".btn-success").removeClass("btn-success");
+    }
+  });
+</script>

@@ -1,0 +1,212 @@
+<div class="demographics-container show" style="margin-top:1rem;">
+  <div class="container">
+    <%= form_for(:patient_record, url: patient_update_record_path, type: "demographics", :validate => true, :class => 'form-horizontal') do |f| %>
+
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :site_location %>
+        </div>
+        <div class="col-md-5">
+          <% site_location = @patient.demographics.site_location.empty? ? "Cox Elementary School" : @patient.demographics.site_location %>
+          <%= f.text_field :site_location, :class => "form-control", :value => site_location %>  
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :allergies %>
+        </div>
+        <div class="col-md-5">
+          <% allergies = @patient.demographics.allergies %>
+          <textarea placeholder="Allergies" name="patient_record[allergies]" class="form-control" rows="2"><%= allergies %></textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :reaction_type %>
+        </div>
+        <div class="col-md-5">
+          <% reaction_type = @patient.demographics.reaction_type %>
+          <textarea placeholder="Reactions" name="patient_record[reaction_type]" class="form-control" rows="2"><%= reaction_type %></textarea>
+        </div>
+      </div>
+      <div class="form-group row col-md-12">
+        <hr>
+        <label>Immunizations Received</label>
+        <a href="<%= image_path 'cdc-schedule.png' %>" data-lightbox="imm-schedule">
+          (View Recommended Schedule) <i class="fa fa-image fa-lg"></i>
+        </a>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :utd, "Up To Date" %>
+        </div>
+        <div class="col-md-5">
+          <input type="checkbox" name="patient_record[utd]" id="utd">
+        </div>
+      </div>
+      <% if @patient.get_dtap_count > 0 %>
+        <div class="form-group row">
+          <div class="col-md-3">
+            <%= f.label :dtap, "DTaP" %>
+          </div>
+          <div class="col-md-7">
+            <input type="checkbox" <%= @patient.demographics.dtap != 0 ? "" : "checked" %> name="patient_record[dtap]" value="0" /> None 
+            <% (1..@patient.get_dtap_count).each do |order| %> 
+              <input type="checkbox" <%= order <= @patient.demographics.dtap ? "checked" : "" %>
+              name="patient_record[dtap]" class="imm" value="<%= order %>" />
+              <strong><%= order.ordinalize() %></strong> Dose 
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <% if @patient.get_hepa_count > 0 %>
+        <div class="form-group row">
+          <div class="col-md-3">
+            <%= f.label :hepa, "HepA" %>
+          </div>
+          <div class="col-md-7">
+            <input type="checkbox" <%= @patient.demographics.hepa != 0 ? "" : "checked" %> name="patient_record[hepa]" value="0" /> None 
+            <% (1..@patient.get_hepa_count).each do |order| %> 
+              <input type="checkbox" <%= order <= @patient.demographics.hepa ? "checked" : "" %>
+              name="patient_record[hepa]" class="imm" value="<%= order %>" />
+              <strong><%= order.ordinalize() %></strong> Dose 
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <% if @patient.get_hepb_count > 0 %>
+        <div class="form-group row">
+          <div class="col-md-3">
+            <%= f.label :hepb, "HepB" %>
+          </div>
+          <div class="col-md-7">
+            <input type="checkbox" <%= @patient.demographics.hepb != 0 ? "" : "checked" %> name="patient_record[hepb]" value="0" /> None 
+            <% (1..@patient.get_hepb_count).each do |order| %> 
+              <input type="checkbox" <%= order <= @patient.demographics.hepb ? "checked" : "" %>
+              name="patient_record[hepb]" class="imm" value="<%= order %>" />
+              <strong><%= order.ordinalize() %></strong> Dose 
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <% if @patient.get_hib_count > 0 %>
+        <div class="form-group row">
+          <div class="col-md-3">
+            <%= f.label :hib, "HiB" %>
+          </div>
+          <div class="col-md-7">
+            <input type="checkbox" <%= @patient.demographics.hib != 0 ? "" : "checked" %> name="patient_record[hib]" value="0" /> None 
+            <% (1..@patient.get_hib_count).each do |order| %> 
+              <input type="checkbox" <%= order <= @patient.demographics.hib ? "checked" : "" %>
+              name="patient_record[hib]" class="imm" value="<%= order %>" />
+              <strong><%= order.ordinalize() %></strong> Dose 
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <% if @patient.get_mmr_count > 0 %>
+        <div class="form-group row ">
+          <div class="col-md-3">
+            <%= f.label :mmr, "MMR" %>
+          </div>
+          <div class="col-md-7">
+            <input type="checkbox" <%= @patient.demographics.mmr != 0 ? "" : "checked" %> name="patient_record[mmr]" value="0" /> None 
+            <% (1..@patient.get_mmr_count).each do |order| %> 
+              <input type="checkbox" <%= order <= @patient.demographics.mmr ? "checked" : "" %>
+              name="patient_record[mmr]" class="imm" value="<%= order %>" />
+              <strong><%= order.ordinalize() %></strong> Dose 
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <% if @patient.get_men_count > 0 %>
+        <div class="form-group row">
+          <div class="col-md-3">
+            <%= f.label :men, "Men" %>
+          </div>
+          <div class="col-md-7">
+            <input type="checkbox" <%= @patient.demographics.men != 0 ? "" : "checked" %> name="patient_record[men]" value="0" /> None 
+            <% (1..@patient.get_men_count).each do |order| %> 
+              <input type="checkbox" <%= order <= @patient.demographics.men ? "checked" : "" %>
+              name="patient_record[men]" class="imm" value="<%= order %>" />
+              <strong><%= order.ordinalize() %></strong> Dose 
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <% if @patient.get_pneumovax_count > 0 %>
+        <div class="form-group row">
+          <div class="col-md-3">
+            <%= f.label :pneumovax, "Pneumovax" %>
+          </div>
+          <div class="col-md-7">
+            <input type="checkbox" <%= @patient.demographics.pneumovax != 0 ? "" : "checked" %> name="patient_record[pneumovax]" value="0" /> None 
+            <% (1..@patient.get_pneumovax_count).each do |order| %> 
+              <input type="checkbox" <%= order <= @patient.demographics.pneumovax ? "checked" : "" %>
+              name="patient_record[pneumovax]" class="imm" value="<%= order %>" />
+              <strong><%= order.ordinalize() %></strong> Dose 
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <% if @patient.get_influenza_count > 0 %>
+        <div class="form-group row">
+          <div class="col-md-3">
+            <%= f.label :influenza, "Influenza" %>
+          </div>
+          <div class="col-md-7">
+            <input type="checkbox" <%= @patient.demographics.influenza != 0 ? "" : "checked" %> name="patient_record[influenza]" value="0" /> None 
+            <% (1..@patient.get_influenza_count).each do |order| %> 
+              <input type="checkbox" <%= order <= @patient.demographics.influenza ? "checked" : "" %>
+              name="patient_record[influenza]" class="imm" value="<%= order %>" />
+              <strong><%= order.ordinalize() %></strong> Dose 
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label "Additional Immunizations" %>
+        </div>
+        <div class="col-md-5">
+          <% additional_immunizations = @patient.demographics.additional_immunizations %>
+          <textarea placeholder="Additional Immunizations" name="patient_record[additional_immunizations]" class="form-control" rows="2"><%= additional_immunizations %></textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label "Additional Notes" %>
+        </div>
+        <div class="col-md-5">
+          <% additional_notes = @patient.demographics.additional_notes %>
+          <textarea placeholder="Additional Notes" name="patient_record[additional_notes]" class="form-control" rows="2"><%= additional_notes %></textarea>
+        </div>
+      </div>
+      <div class="form-group row col-md-12">
+        <hr>
+        <div class="container">
+          <label class="col-md-3">Working Practitioner(s)</label>
+          <div class="col-md-5">
+            <% practitioner = @patient.demographics.practitioner.empty? ? "#{current_user.first_name} #{current_user.last_name}" : @patient.demographics.practitioner %>
+            <%= f.text_field :practitioner, :class => "form-control", :value => practitioner, :placeholder => "Can't be blank" %>
+          </div> 
+          <%= f.hidden_field :practitioner_role, :value => current_user.role %>
+        </div>
+      </div>
+
+      <%= render 'patient/input_footer' %>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  $(".demographics").addClass("active");
+  $("#utd").change(function() {
+    if ($(this).prop("checked")) {
+      $(".imm").prop("checked", true);
+    }
+    else {      
+      $(".imm").prop("checked", false);
+    }
+  });
+</script>

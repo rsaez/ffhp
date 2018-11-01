@@ -1,0 +1,11 @@
+  <%= render 'admin/user_table' %>
+
+  <%= render 'admin/create_user' %>
+
+
+<script>
+  $("#admin").addClass("active");
+  $(".clickableRow").click(function() {
+    window.document.location = $(this).attr("href");
+  });
+</script>
